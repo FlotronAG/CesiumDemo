@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flotron Demo Cesium</title>
+    <script src="https://cesiumjs.org/releases/1.86/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesiumjs.org/releases/1.86/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+</head>
+<body>
+    <div id="cesiumContainer"></div>
+    <script>
+        // Grant CesiumJS access to your ion assets
+        Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwY2YzMjg1Ni1kNjNmLTQwZGItYjNhYS0zMjlmM2Y1M2Y0NTYiLCJpZCI6NTE5ODEsImlhdCI6MTYxODM4Mzk1MX0.lhWGANB7Leyg7dat5D3ZK8Zbq2v4pYSKnahafNh6bRk";
+
+        var viewer = new Cesium.Viewer("cesiumContainer", {
+        terrainProvider: Cesium.createWorldTerrain(),
+        });
+
+        var imageryLayer = viewer.imageryLayers.addImageryProvider(
+        new Cesium.IonImageryProvider({ assetId: 638245 })
+        );
+
+        viewer.zoomTo(imageryLayer).otherwise(function (error) {
+        console.log(error);
+        });
+
+    </script>
+    
+</body>
+</html>
