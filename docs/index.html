@@ -16,6 +16,11 @@
         var viewer = new Cesium.Viewer("cesiumContainer", {
         terrainProvider: Cesium.createWorldTerrain(),
         });
+        // Disable timeline and animation container
+        // https://community.cesium.com/t/how-to-disable-timeline-and-clock-after-cesium-initiated/4626
+        viewer.animation.container.style.visibility = 'hidden';
+        viewer.timeline.container.style.visibility = 'hidden';
+        viewer.forceResize();
 
         var imageryLayer = viewer.imageryLayers.addImageryProvider(
         new Cesium.IonImageryProvider({ assetId: 638245 })
