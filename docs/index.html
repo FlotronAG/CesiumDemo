@@ -6,29 +6,82 @@
     <title>Flotron Demo Cesium</title>
     <script src="./js/Cesium/Cesium.js"></script>
     <link href="./js/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <button class="menubtn" name="btn_loadSchilthorn" id="btn_loadSchilthorn" onclick="loadSchilthorn()">Schilthorn</button>
+    <button class="menubtn" name="btn_loadThun" id="btn_loadThun" onclick="loadOrthoThun()">Thun</button>
+    <button class="menubtn" name="btn_loadGeneva" id="btn_loadGeneva" onclick="loadGeneva()">Geneva 3D Model</button>
     <div id="cesiumContainer"></div>
     <script>
         // Grant CesiumJS access to your ion assets
         Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwY2YzMjg1Ni1kNjNmLTQwZGItYjNhYS0zMjlmM2Y1M2Y0NTYiLCJpZCI6NTE5ODEsImlhdCI6MTYxODM4Mzk1MX0.lhWGANB7Leyg7dat5D3ZK8Zbq2v4pYSKnahafNh6bRk";
 
+        // Define Terrain providers
+        var terrainWorld = Cesium.createWorldTerrain()
+        var terrainEllipsoid = new Cesium.EllipsoidTerrainProvider;
+
         var viewer = new Cesium.Viewer("cesiumContainer", {
-        terrainProvider: Cesium.createWorldTerrain(),
+            terrainProvider: terrainWorld,
         });
+        
         // Disable timeline and animation container
         // https://community.cesium.com/t/how-to-disable-timeline-and-clock-after-cesium-initiated/4626
         viewer.animation.container.style.visibility = 'hidden';
         viewer.timeline.container.style.visibility = 'hidden';
         viewer.forceResize();
 
-        var imageryLayer = viewer.imageryLayers.addImageryProvider(
-        new Cesium.IonImageryProvider({ assetId: 638245 })
-        );
+        
+        //-------------------------------------------------------------------------------------------------------------
+        // Functions
+        //-------------------------------------------------------------------------------------------------------------
+        function loadSchilthorn() {
+            viewer.terrainProvider = terrainWorld;
+            var imageryLayer = viewer.imageryLayers.addImageryProvider(
+                new Cesium.IonImageryProvider({ assetId: 638245 })
+            );
+            viewer.zoomTo(imageryLayer).otherwise(function (error) {
+                console.log(error);
+            });
+        }
 
-        viewer.zoomTo(imageryLayer).otherwise(function (error) {
-        console.log(error);
-        });
+        function loadOrthoThun() {
+            viewer.terrainProvider = terrainEllipsoid;
+            var imageryLayer = viewer.imageryLayers.addImageryProvider(
+                new Cesium.IonImageryProvider({ assetId: 653115 })
+            );
+            viewer.zoomTo(imageryLayer).otherwise(function (error) {
+                console.log(error);
+            });
+        }
+
+        function loadGeneva() {
+            viewer.terrainProvider = terrainEllipsoid;
+            var tileset = viewer.scene.primitives.add(
+                new Cesium.Cesium3DTileset({
+                    url: Cesium.IonResource.fromAssetId(652663),
+                })
+            );
+
+            tileset.readyPromise
+            .then(function () {
+                viewer.zoomTo(tileset);
+
+                // Apply the default style if it exists
+                var extras = tileset.asset.extras;
+                if (
+                Cesium.defined(extras) &&
+                Cesium.defined(extras.ion) &&
+                Cesium.defined(extras.ion.defaultStyle)
+                ) {
+                tileset.style = new Cesium.Cesium3DTileStyle(extras.ion.defaultStyle);
+                }
+            })
+            .otherwise(function (error) {
+                console.log(error);
+            });
+        }
+
 
     </script>
     
