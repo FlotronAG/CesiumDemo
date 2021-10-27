@@ -9,10 +9,26 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button class="menubtn" name="btn_loadSchilthorn" id="btn_loadSchilthorn" onclick="loadSchilthorn()">Schilthorn</button>
-    <button class="menubtn" name="btn_loadThun" id="btn_loadThun" onclick="loadOrthoThun()">Thun</button>
-    <button class="menubtn" name="btn_loadGeneva" id="btn_loadGeneva" onclick="loadGeneva()">Geneva 3D Model</button>
-    <div id="cesiumContainer"></div>
+    
+    <div class="wrapper">
+        <div class="header">
+            <button class="menubtn" name="btn_loadSchilthorn" id="btn_loadSchilthorn" onclick="loadSchilthorn()">Schilthorn</button>
+            <button class="menubtn" name="btn_loadThun" id="btn_loadThun" onclick="loadOrthoThun()">Thun</button>
+            <button class="menubtn" name="btn_loadGeneva" id="btn_loadGeneva" onclick="loadGeneva()">Geneva 3D Model</button>
+            <a href="https://www.flotron.ch/">
+                <img alt="Flotron" src="images/Logo.png" class="img"/>
+            </a>
+            
+            
+            
+        </div>
+        <div class="mapViewer" >
+            <div id="cesiumContainer"></div>
+        </div>
+    </div>
+    
+    
+    
     <script>
         // Grant CesiumJS access to your ion assets
         Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwY2YzMjg1Ni1kNjNmLTQwZGItYjNhYS0zMjlmM2Y1M2Y0NTYiLCJpZCI6NTE5ODEsImlhdCI6MTYxODM4Mzk1MX0.lhWGANB7Leyg7dat5D3ZK8Zbq2v4pYSKnahafNh6bRk";
@@ -29,7 +45,7 @@
         // https://community.cesium.com/t/how-to-disable-timeline-and-clock-after-cesium-initiated/4626
         viewer.animation.container.style.visibility = 'hidden';
         viewer.timeline.container.style.visibility = 'hidden';
-        viewer.forceResize();
+        //viewer.forceResize();
 
         
         //-------------------------------------------------------------------------------------------------------------

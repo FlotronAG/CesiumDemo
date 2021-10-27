@@ -1,3 +1,17 @@
+.wrapper {
+  
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  height: 5%;
+}
+
+.mapViewer {
+  height: 95%;
+}
+
 .menubtn {
     background-color: #1A8ED3;
     color: white;
@@ -5,6 +19,19 @@
     font-size: 16px;
     border: none;
 }
+
+
+.img {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 5%;
+  width: auto;
+}
+
+
+
+
 
 /* Dropdown Button */
 .dropbtn {
